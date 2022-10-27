@@ -264,16 +264,14 @@ def _get_current_branchname(**kwargs):
         _check_output(
             [
                 "git",
-                "symbolic-ref",
-                "--short",
-                "HEAD",
+                "branch",
+                "--show-current",
             ],
             **kwargs,
         )
         .decode("utf-8")
         .strip()
     )
-
 
 
 def _get_image_build_args(image_options, ns):
@@ -701,7 +699,7 @@ def build_images(
                     *all_image_paths, echo=False
                 ),
                 "TAG": image_tag,
-                "BRANCH": _get_current_branchname(echo=False)
+                "BRANCH": _get_current_branchname(echo=False),
             }
             build_image(
                 image_spec,
